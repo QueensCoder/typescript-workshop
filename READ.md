@@ -11,3 +11,10 @@ using parcel-bundler to compile ts to js for the browser
 need to use npx to use parcel because it is not globally installed
 
 files that export classes should be have uppercase first letter
+
+type definition files maybe required for some imports
+
+some packages require you to install an @types/{packagename}
+in order for the package to work with ts
+
+default exports are discouraged in the TS community
