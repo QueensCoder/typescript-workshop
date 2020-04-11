@@ -1,5 +1,10 @@
-import { User } from './User';
-import { Company } from './Company';
+interface MapData {
+  location: {
+    lat: number;
+    lng: number;
+  };
+  markerContent(): string;
+}
 
 export class CustomMap {
   // makes it so no one can access to google map class
@@ -11,23 +16,24 @@ export class CustomMap {
       center: { lat: 0, lng: 0 },
     });
   }
-  addUserMarker(user: User): void {
-    new google.maps.Marker({
+
+  //   instead of include different class types
+  // use the mapData interface instead to say anything passed in must have
+  // the location fields as a property
+  addMarker(mapData: MapData): void {
+    const marker = new google.maps.Marker({
       map: this.googleMap,
       position: {
-        lat: user.location.lat,
-        lng: user.location.lng,
+        lat: mapData.location.lat,
+        lng: mapData.location.lng,
       },
     });
-  }
-
-  addCompanyMarker(company: Company): void {
-    new google.maps.Marker({
-      map: this.googleMap,
-      position: {
-        lat: company.location.lat,
-        lng: company.location.lng,
-      },
+    marker.addListener('click', () => {
+      const infoWindow = new google.maps.InfoWindow({
+        content: mapData.markerContent(),
+      });
+      //   opens window on map at marker
+      infoWindow.open(this.googleMap, marker);
     });
   }
 }

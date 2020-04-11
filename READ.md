@@ -18,3 +18,5 @@ some packages require you to install an @types/{packagename}
 in order for the package to work with ts
 
 default exports are discouraged in the TS community
+
+use definition files to learn how to invoke required methods such as what info is required in options for google maps
